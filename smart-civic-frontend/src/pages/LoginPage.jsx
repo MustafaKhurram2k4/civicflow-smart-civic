@@ -16,7 +16,6 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import ShieldRounded from "@mui/icons-material/ShieldRounded";
 import EmailRounded from "@mui/icons-material/EmailRounded";
 import LockRounded from "@mui/icons-material/LockRounded";
 import VisibilityRounded from "@mui/icons-material/VisibilityRounded";
@@ -260,6 +259,7 @@ export default function LoginPage() {
 
   return (
     <Box
+      className="civicflow-auth-page"
       sx={{
         minHeight: "100vh",
         display: "flex",
@@ -280,29 +280,22 @@ export default function LoginPage() {
           zIndex: 10,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Box
-            sx={{
-              width: 42,
-              height: 42,
-              borderRadius: 3,
-              display: "grid",
-              placeItems: "center",
-              color: "#fff",
-              background: "linear-gradient(135deg, #315f8c, #5b83ac)",
-              boxShadow: "4px 4px 12px var(--cf-shadow-dark)",
-            }}
-          >
-            <ShieldRounded />
-          </Box>
-          <Box>
-            <Typography fontWeight={900} fontSize={20} letterSpacing="-0.02em">
-              Civic<span style={{ color: "#315f8c" }}>Flow</span>
-            </Typography>
-            <Typography variant="caption" color="text.secondary" fontWeight={600}>
-              Smart Civic Grievance Portal
-            </Typography>
-          </Box>
+        <Box
+          className="civicflow-logo-lockup civicflow-login-logo-lockup"
+          aria-label="CivicFlow — Smart Civic Grievance Portal"
+        >
+          <img
+            src="/civicflow-logo-light.png"
+            alt="CivicFlow — Smart Civic Grievance Portal"
+            className="civicflow-logo civicflow-login-logo civicflow-logo-light"
+            draggable="false"
+          />
+          <img
+            src="/civicflow-logo-dark.png"
+            alt="CivicFlow — Smart Civic Grievance Portal"
+            className="civicflow-logo civicflow-login-logo civicflow-logo-dark"
+            draggable="false"
+          />
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -403,7 +396,7 @@ export default function LoginPage() {
                     onClick={() => handleQuickDemoLogin("admin")}
                     sx={{ borderRadius: 2, flex: 1, textTransform: "none", fontWeight: 700 }}
                   >
-                    Demo Admin (A101)
+                    Demo Admin
                   </Button>
                 </Box>
               </Box>
@@ -461,7 +454,9 @@ export default function LoginPage() {
                         <TextField
                           fullWidth
                           label="Full Name / Admin Code"
-                          placeholder="e.g. Ramesh Gupta or A101"
+                          name="fullName"
+                          autoComplete="name"
+                          placeholder="e.g. Ramesh Gupta"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           InputProps={{
@@ -477,6 +472,9 @@ export default function LoginPage() {
                         <TextField
                           fullWidth
                           label="Mobile Number (Optional)"
+                          name="phone"
+                          autoComplete="tel"
+                          inputMode="tel"
                           placeholder="+91 9876543210"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
@@ -496,6 +494,8 @@ export default function LoginPage() {
                   <TextField
                     fullWidth
                     label="Email Address"
+                    name="email"
+                    autoComplete="email"
                     type="email"
                     placeholder="name@example.com"
                     value={email}
@@ -513,6 +513,8 @@ export default function LoginPage() {
                   <TextField
                     fullWidth
                     label="Password"
+                    name="password"
+                    autoComplete={isSignUp ? "new-password" : "current-password"}
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -541,6 +543,8 @@ export default function LoginPage() {
                     <TextField
                       fullWidth
                       label="Confirm Password"
+                      name="confirmPassword"
+                      autoComplete="new-password"
                       type={showPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
